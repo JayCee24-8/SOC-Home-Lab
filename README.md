@@ -32,6 +32,14 @@ The repository will include:
 - **Windows 10 Pro** – Defensive endpoint with Sysmon and Splunk.
 - **Isolated Network** – Host-Only segment for safe traffic simulation.
 
+[ Kali Linux ]
+(Attacker VM)
+|
+| Host-Only Network (LAN Segment)
+|
+[ Windows 10 Pro ]
+(Defender + SIEM: Sysmon + Splunk)
+
 ---
 
 ## Disclaimer
