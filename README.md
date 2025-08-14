@@ -29,7 +29,7 @@ The repository will include:
 
 ## Current Lab Stack
 - **Kali Linux** – Offensive testing platform (e.g., Nmap).
-- **Windows 10/11** – Defensive endpoint with Sysmon and Splunk.
+- **Windows 10 Pro** – Defensive endpoint with Sysmon and Splunk.
 - **Isolated Network** – Host-Only segment for safe traffic simulation.
 
 ---
