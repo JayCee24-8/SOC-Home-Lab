@@ -10,20 +10,53 @@ Document the process of setting up a safe, isolated SOC home lab using **Kali Li
 
 ---
 
+## VM Creation Specs
+**Kali Linux**
+- 2 CPU cores  
+- 2–4 GB RAM  
+- 20 GB virtual disk  
+- Network Adapter: NAT (initially), then Host-Only/Internal
+
+**Windows 10 Pro**
+- 2–4 CPU cores  
+- 4–8 GB RAM  
+- 40 GB virtual disk  
+- Network Adapter: NAT (initially), then Host-Only/Internal
+
+---
+
 ## Kali Linux Setup (NAT Phase)
 - Ensure required tools are installed:
   ```bash
   sudo apt update && sudo apt install nmap metasploit-framework -y
   ```
 ## Windows 10 Pro Setup (NAT Phase)
-- Install & set up Splunk Enterprise.
-- Install the Splunk Add-on for Sysmon.
-- Install & set up Sysmon with the OLAF modular configuration.
-- Ingest Sysmon logs into Splunk using a modified inputs.conf file:
-  - This file contains the configuration to add the Sysmon event log path for direct ingestion.
-  - Place the file in:
-    ``` C:\Program Files\Splunk\etc\system\local\inputs.conf ```
-  - The exact inputs.conf file used in this setup will be included in this repository for reference.
+### Splunk Installation
+- Download Splunk Enterprise for Windows from: https://www.splunk.com/en_us/download/splunk-enterprise.html
+- Run the installer and:
+  - Accept license terms.
+  - Choose the default installation path.
+  - Set a strong admin password.
+  - Allow Splunk to start at boot.
+
+### Sysmon Installation
+- Download Sysmon from Microsoft Sysinternals: https://learn.microsoft.com/sysinternals/downloads/sysmon
+- Download the OLAF modular configuration: https://github.com/olafhartong/sysmon-modular
+- Open Command Prompt as Administrator in the Sysmon folder.
+- Install Sysmon with the OLAF configuration:
+``` sysmon.exe -accepteula -i sysmonconfig.xml ```
+
+### Sysmon Log Ingestion into Splunk
+- Use a modified inputs.conf file to automatically ingest Sysmon logs.
+- Place the file in:
+``` C:\Program Files\Splunk\etc\system\local\inputs.conf ```
+- Example inputs.conf content:
+```
+[WinEventLog://Microsoft-Windows-Sysmon/Operational]
+index = sysmon
+disabled = 0
+renderXml = false
+```
 
 ---
 
